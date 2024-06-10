@@ -1,0 +1,57 @@
+﻿@model Category
+
+<div class="card shadow border-0 mt-4">
+	<div class="card-header bg-secondary bg-gradient m-lg-0 py-3">
+		<div class="row">
+			<div class="col-12 text-center">
+				<h2 class="text-white py-2">Create Category</h2>
+			</div>
+		</div>
+	</div>
+	<div class="card-body p-4">
+		@*<partial name="_Notification" /> using this asp class we can call any views as partial ones*@
+		<form method="post" class="row">
+			<div class="border p-3">
+
+				@* the asp-validation-summary tag helper with the All word lists all the validation errors found, ModelOnly will only list the values that have errors but
+				not the property specified, None does not display any error messages*@
+				@* <div asp-validation-summary="ModelOnly"></div> *@
+				<div class="form-floating py-2 col-12">
+					@*asp-for is a asp tag helper that allows to specify what variable type from the model the input introduced is referencing*@
+					<input asp-for="Name" class="form-control border-0 shadow"/>
+					<label asp-for="Name" class="ms-2"></label>
+					@*sp-validation is a tag that checks if the value specify contains all the requirements of it's annotations defined in their
+					model/class (Category in this case)*@
+					<span asp-validation-for="Name" class="text-danger"></span>
+				</div>
+
+				<div class="form-floating py-2 col-12">
+					<input asp-for="DisplayOrder" class="form-control border-0 shadow" />
+					<label asp-for="DisplayOrder" class="ms-2"></label>
+					<span asp-validation-for="DisplayOrder" class="text-danger"></span>
+				</div>
+
+				<div class="row pt-2">
+					<div class="col-6 col-md-3">
+						@*Where the Create button calls the httpost Create function from the CategoryController*@
+						<button type="submit" class="btn btn-outline-primary form-control">Create</button>
+					</div>
+
+					<div class="col-6 col-md-3">
+						<a asp-controller="Category" asp-action="Index" class="btn btn-outline-primary form-control">
+							Back to List
+						</a>
+					</div>
+				</div>
+		</form>
+	</div>
+</div>
+
+
+@* this is similar to a library c# import, we are referencing the _ValidationScriptsPartial located on the Shared Folder, it's basically a script
+	That contains client side validations, only not-custom validations are client side*@
+		@section Scripts{
+			@{
+				<partial name="_ValidationScriptsPartial" />
+			}
+		}

@@ -1,0 +1,60 @@
+﻿@page
+@model BulkyWebRazor_Temp.Pages.Categories.IndexModel
+
+	<div class="container">
+		<div class="row pt-4 pb-3">
+			<div class="col-6">
+				<h2 class="text-primary">
+					Category List
+				</h2>
+			</div>
+			<div class="col-6 text-end">
+			@* The tag helpers for razor page have a slightly different syntax since controllers dont exists the route asp class is
+			<a asp-page="/Folder/PageToRoute">
+			*@
+				<a asp-page="/Categories/Create" class="btn btn-primary"> 
+					<i class="bi bi-plus-circle"></i> Create New Category
+				</a>
+			</div>
+		</div>
+
+<table class="table table-bordered table-striped">
+	<thead>
+	<tr>
+		<th>
+			Category Name
+		</th>
+		<th>
+			Display Order
+		</th>
+		<th></th>
+	</tr>
+	</thead>
+	<tbody>
+			@* in dotnet 7 and onwards it's possible to write c# code on cshtlm files, by initiating the line with an @ character. 
+			in this case we are using a forech loop to iterate the model (it has to be referenced in pascal casing) to print the Name and DisplayOrder of each category.*@
+			@foreach (var obj in Model.CategoryList.OrderBy(order => order.DisplayOrder))
+			{
+						<tr>
+								<td>@obj.Name</td>
+								<td>@obj.DisplayOrder</td>
+								<td>
+									<div class="w-75 btn-group" role="group">
+
+@* 							<a asp-page="Category/Index" class="btn btn-outline-secondary form-control"> *@
+
+							<a asp-page="/Categories/Edit" asp-route-id="@obj.Id" class="btn btn-primary mx-2">
+												<i class="bi bi-pencil-square"></i> Edit
+										</a>
+
+							<a asp-page="/Categories/Delete" asp-route-id="@obj.Id" class="btn btn-danger mx-2">
+												<i class="bi bi-trash"></i> Delete
+										</a>
+									</div>
+								</td>
+						</tr>
+			}
+	</tbody>
+</table>
+</div>
+

@@ -1,0 +1,49 @@
+﻿@page
+@model BulkyWebRazor_Temp.Pages.Categories.CreateModel
+
+<form method="post">
+	<div class="border p-3 mt-4">
+		<div class="row pb-2">
+			<h2 class="text-primary">Create Category</h2>
+			<hr />
+		</div>
+		@* the asp-validation-summary tag helper with the All word lists all the validation errors found, ModelOnly will only list the values that have errors but
+		not the property specified, None does not display any error messages*@
+		@* <div asp-validation-summary="ModelOnly"></div> *@
+		<div class="mb-3 row p-1">
+			@*asp-for is a asp tag helper that allows to specify what variable type from the model the input introduced is referencing. Unlike MVC we have to define
+				which property of the model we are accesing, in this case Category.*@
+			<label asp-for="Category.Name" class="p-0"></label>
+			<input asp-for="Category.Name" class="form-control" />
+			@*sp-validation is a tag that checks if the value specify contains all the requirements of it's annotations defined in their
+			model/class (Category in this case)*@
+			<span asp-validation-for="Category.Name" class="text-danger"></span>
+		</div>
+
+		<div class="mb-3 row p-1">
+			<label asp-for="Category.DisplayOrder" class="p-0"></label>
+			<input asp-for="Category.DisplayOrder" class="form-control" />
+			<span asp-validation-for="Category.DisplayOrder" class="text-danger"></span>
+		</div>
+
+		<div class="row">
+			<div class="col-6 col-md-3">
+				@*Where the Create button calls the httpost Create function from the CategoryController*@
+				<button type="submit" class="btn btn-primary form-control">Create</button>
+			</div>
+
+			<div class="col-6 col-md-3">
+				<a asp-page="/Categories/Index" class="btn btn-outline-secondary form-control">
+					Back to List
+				</a>
+			</div>
+		</div>
+</form>
+
+@* this is similar to a library c# import, we are referencing the _ValidationScriptsPartial located on the Shared Folder, it's basically a script
+	That contains client side validations, only not-custom validations are client side*@
+@section Scripts {
+	@{
+		<partial name="_ValidationScriptsPartial" />
+	}
+}

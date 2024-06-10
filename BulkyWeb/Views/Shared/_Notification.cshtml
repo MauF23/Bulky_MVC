@@ -1,0 +1,21 @@
+﻿@* this is a Partial view, al view files that start with _ are*@
+@* this condition allows us to dispay TempData messages under the success key which is stored in the viewBag from the CategoryController *@
+@if (ViewBag.TempDataSuccessKey != null && TempData[ViewBag.TempDataSuccessKey] != null)
+{
+	//We are using toastr to display notification messages
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
+	<script type="text/javascript">
+		toastr.success('@TempData[ViewBag.TempDataSuccessKey]');
+	</script>
+}
+
+@if (ViewBag.TempDataErrorKey != null && TempData[ViewBag.TempDataErrorKey] != null)
+{
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+	<script type="text/javascript">
+		toastr.error('@TempData[ViewBag.TempDataErrorKey]');
+	</script>
+}

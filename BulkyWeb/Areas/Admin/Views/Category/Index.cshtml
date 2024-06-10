@@ -1,0 +1,67 @@
+﻿@model List<Category> //define a model, essentially a type the cshtml file can recive, we'll use this one to display the categories
+
+<div class="card shadow border-0 mt-4">
+	<div class="card-header bg-secondary bg-gradient m-lg-0 py-3">
+		<div class="row">
+			<div class="col-12 text-center">
+				<h2 class="text-white py-2">Category List</h2>
+			</div>
+		</div>
+	</div>
+	<div class="card-body p-4">
+		<div class="row pb-3">
+			<div class="col-6">
+			</div>
+			<div class="col-6 text-end">
+				@* asp-action="Create" is a Boostrap Function that will link whatever specified string with a Controller IAction
+				Function, in this case it allows to call the Create function which returns the Create view, asp-controller="Category" indicates which contoller
+				encapsulates the action to use.*@
+				<a asp-controller="Category" asp-action="Create" class="btn btn-primary">
+					<i class="bi bi-plus-circle"></i> Create New Category
+				</a>
+			</div>
+		</div>
+
+		<table class="table table-bordered table-striped">
+			<thead>
+				<tr>
+					<th>
+						Category Name
+					</th>
+					<th>
+						Display Order
+					</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				@* in dotnet 7 and onwards it's possible to write c# code on cshtlm files, by initiating the line with an @ character.
+				in this case we are using a forech loop to iterate the model (it has to be referenced in pascal casing) to print the Name and DisplayOrder of each category.*@
+				@foreach (var obj in Model.OrderBy(order => order.DisplayOrder))
+				{
+					<tr>
+						<td>@obj.Name</td>
+						<td>@obj.DisplayOrder</td>
+						<td>
+							<div class="w-75 btn-group" role="group">
+
+								@* asp-route-categoryId is an asp helper function that allows to pass a parameter from the referenced object, obj in this case
+							asp-route is the keyword, -id can be named whatever, ideally a name that reflectss what value we are getting*@
+								<a asp-controller="Category" asp-action="Edit" asp-route-id="@obj.Id" class="btn btn-primary mx-2">
+									<i class="bi bi-pencil-square"></i> Edit
+								</a>
+
+								@* this controller has the Delete Action which will call the Delete function from the controller and eliminate the referenced obj
+							by it's id*@
+								<a asp-controller="Category" asp-action="Delete" asp-route-id="@obj.Id" class="btn btn-danger mx-2">
+									<i class="bi bi-trash"></i> Delete
+								</a>
+							</div>
+						</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+
+	</div>
+
